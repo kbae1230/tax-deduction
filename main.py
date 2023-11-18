@@ -1,4 +1,5 @@
 import streamlit as st
+import datetime
 
 class 과세표준:
     def 소득공제(self, 연소득, 신용, 현금, 체크):
@@ -56,10 +57,21 @@ def 소득공제_결과(소득_공제):
         return f"<p style='color:red'>{int(소득공제_한도액-소득_공제)}만원 공제 가능합니다.</p>"
     else:
         return f"<p style='color:green'>소득공제를 초과 달성.</p>"
-       
 
+
+def get_current_time():
+    now = datetime.datetime.now()
+    return now.strftime("%Y-%m-%d %H:%M:%S")
+
+# 방문자 수 증가 및 현재 시간 로깅
+def log_visitor():
+    global visitor_count
+    visitor_count += 1
+    st.markdown(f'<div class="footer1">방문자 수: {visitor_count}<br>최근 방문 시간: {get_current_time()}', unsafe_allow_html=True)
+    
+    
 def main():
-    st.set_page_config(layout="wide", page_title="My Streamlit App", page_icon="🎈", initial_sidebar_state="expanded")
+    log_visitor()
 
     st.title("연말정산 (소득공제)")
     col1, col2 = st.columns(2)
@@ -182,7 +194,13 @@ style = """
         padding: 5px;
         border-radius: 5px;
     }
-    .footer {
+    .footer1 {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        padding: 10px;
+    }
+    .footer2 {
         position: fixed;
         bottom: 0;
         right: 0;
@@ -198,8 +216,8 @@ style = """
     """            
             
 if __name__ == '__main__':
+    visitor_count = 0
     main()
-
     # Copyright 및 주의 사항 텍스트
     copyright_text = """
 
@@ -209,4 +227,4 @@ if __name__ == '__main__':
     """
 
     st.markdown(style, unsafe_allow_html=True)
-    st.markdown(f'<div class="footer">{copyright_text}', unsafe_allow_html=True)
+    st.markdown(f'<div class="footer2">{copyright_text}', unsafe_allow_html=True)
