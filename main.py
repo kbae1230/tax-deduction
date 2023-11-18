@@ -201,7 +201,6 @@ style = """
         padding: 10px;
     }
     .footer2 {
-        position: fixed;
         bottom: 0;
         right: 0;
         padding: 10px;
