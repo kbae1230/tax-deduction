@@ -67,8 +67,9 @@ def get_current_time():
 def log_visitor():
     global visitor_count
     visitor_count += 1
-    st.markdown(f'<div class="footer1">방문자 수: {visitor_count}<br>최근 방문 시간: {get_current_time()}', unsafe_allow_html=True)
-    
+    # st.markdown(f'<div class="footer1">방문자 수: {visitor_count}<br>최근 방문 시간: {get_current_time()}', unsafe_allow_html=True)
+    print(f'방문자 수: {visitor_count}')
+    print(f'최근 방문 시간: {get_current_time()}')
     
 def main():
     log_visitor()
