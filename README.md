@@ -1,7 +1,3 @@
-# Welcome to streamlit
+# Welcome to Tax Deduction service!
 
-This is the app you get when you run `streamlit hello`, extracted as its own app.
-
-Edit [Hello.py](./Hello.py) to customize this app to your heart's desire. ❤️
-
-Check it out on [Streamlit Community Cloud](https://st-hello-app.streamlit.app/)
+The tool is simply for verifying basic income deductions, and there may be differences from actual results. Please use it for reference only, and the developer assumes no legal responsibility. 
