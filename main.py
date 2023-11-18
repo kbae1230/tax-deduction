@@ -70,7 +70,9 @@ def log_visitor():
     # st.markdown(f'<div class="footer1">방문자 수: {visitor_count}<br>최근 방문 시간: {get_current_time()}', unsafe_allow_html=True)
     print(f'방문자 수: {visitor_count}')
     print(f'최근 방문 시간: {get_current_time()}')
-    
+    with open(log_file_path, "a+") as log_file:
+        log_file.write(f"{get_current_time()} - 방문자 수: {visitor_count}\n")
+
 def main():
     log_visitor()
 
@@ -217,6 +219,7 @@ style = """
             
 if __name__ == '__main__':
     visitor_count = 0
+    log_file_path = "visitor_log.txt"
     main()
     # Copyright 및 주의 사항 텍스트
     copyright_text = """
