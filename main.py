@@ -64,6 +64,8 @@ def get_current_time():
     return now.strftime("%Y-%m-%d %H:%M:%S")
 
 def count_visitors():
+    global total_count
+    
     if "visitor_count" not in st.session_state:
         st.session_state.visitor_count = 0
 
@@ -79,9 +81,9 @@ def count_visitors():
                 total_count = int(count_str.strip())
         except:
             total_count = 0
+        
         with open(log_file_path, "a+") as log_file:
             log_file.write(f"{get_current_time()} - 방문자 수: {total_count + st.session_state.visitor_count}\n")
-        # st.markdown(f'<div class="footer1">방문자 수: {visitor_count}<br>최근 방문 시간: {get_current_time()}', unsafe_allow_html=True)
 
 def main():
     count_visitors()
@@ -208,14 +210,15 @@ style = """
         border-radius: 5px;
     }
     .footer1 {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        padding: 10px;
-    }
-    .footer2 {
         bottom: 0;
         right: 0;
+        padding: 10px;
+    }
+
+    .footer2 {
+        font-size: 5px
+        bottom: -30px;
+        left: 0;
         padding: 10px;
     }
     .stTextInput input {
@@ -240,4 +243,5 @@ if __name__ == '__main__':
     """
 
     st.markdown(style, unsafe_allow_html=True)
-    st.markdown(f'<div class="footer2">{copyright_text}', unsafe_allow_html=True)
+    st.markdown(f'<div class="footer1">{copyright_text}', unsafe_allow_html=True)
+    st.markdown(f'<div class="footer2"/>방문자 수: {total_count}<br>최근 방문 시간: {get_current_time()}', unsafe_allow_html=True)
