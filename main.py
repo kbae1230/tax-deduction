@@ -63,18 +63,28 @@ def get_current_time():
     now = datetime.datetime.now()
     return now.strftime("%Y-%m-%d %H:%M:%S")
 
-# 방문자 수 증가 및 현재 시간 로깅
-def log_visitor():
-    global visitor_count
-    visitor_count += 1
-    # st.markdown(f'<div class="footer1">방문자 수: {visitor_count}<br>최근 방문 시간: {get_current_time()}', unsafe_allow_html=True)
-    print(f'방문자 수: {visitor_count}')
-    print(f'최근 방문 시간: {get_current_time()}')
-    with open(log_file_path, "a+") as log_file:
-        log_file.write(f"{get_current_time()} - 방문자 수: {visitor_count}\n")
+def count_visitors():
+    if "visitor_count" not in st.session_state:
+        st.session_state.visitor_count = 0
+
+    if not st.session_state.get("page_loaded", False):
+        st.session_state.visitor_count += 1
+        st.session_state.page_loaded = True
+        try:
+            with open(log_file_path, "r+") as file:
+                lines = file.readlines()
+
+                last_line = lines[-1]
+                count_str = last_line.split(":")[-1]
+                total_count = int(count_str.strip())
+        except:
+            total_count = 0
+        with open(log_file_path, "a+") as log_file:
+            log_file.write(f"{get_current_time()} - 방문자 수: {total_count + st.session_state.visitor_count}\n")
+        # st.markdown(f'<div class="footer1">방문자 수: {visitor_count}<br>최근 방문 시간: {get_current_time()}', unsafe_allow_html=True)
 
 def main():
-    log_visitor()
+    count_visitors()
 
     st.title("연말정산 (소득공제)")
     col1, col2 = st.columns(2)
