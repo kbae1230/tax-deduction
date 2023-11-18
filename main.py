@@ -244,4 +244,7 @@ if __name__ == '__main__':
 
     st.markdown(style, unsafe_allow_html=True)
     st.markdown(f'<div class="footer1">{copyright_text}', unsafe_allow_html=True)
-    st.markdown(f'<div class="footer2"/>방문자 수: {total_count}<br>최근 방문 시간: {get_current_time()}', unsafe_allow_html=True)
+    try:
+        st.markdown(f'<div class="footer2"/>방문자 수: {total_count}<br>최근 방문 시간: {get_current_time()}', unsafe_allow_html=True)
+    except:
+        pass
